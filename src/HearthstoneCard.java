@@ -14,6 +14,7 @@ public class HearthstoneCard
 		this.name = name; 
 	}
 	
+	
 	public void setName (String name)
 	{
 		if(name.length() >=5)
