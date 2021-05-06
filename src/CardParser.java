@@ -10,7 +10,6 @@ public class CardParser
 	
 	public CardParser(String urlString)
 	{
-		//initial fields
 		this.urlString = urlString;
 		theMinions = new ArrayList<HearthstoneCard>(); 
 		
@@ -53,6 +52,38 @@ public class CardParser
 		}	
 	}
 	
+	public void selectionSortHighestCostToLowestCost()
+	{
+		for(int max = 0; max < this.theMinions.size(); max++)
+		{
+			int maxIndex = this.findIndexOfLargestCostFromPosition(max);
+			HearthstoneCard temp = this.theMinions.get(max);
+			this.theMinions.set(max, this.theMinions.get(maxIndex));
+			this.theMinions.set(maxIndex, temp); 
+		}
+	}
+	
+	public void insertionSortLowestCostToHighestCost()
+	{
+		for(int currStart =1; currStart < this.theMinions.size(); currStart++)
+		{
+			//try to move the value at currStart as far up the array as possible
+			//then move on to the next currStart 
+			int currIndex = currStart;
+			HearthstoneCard temp;
+			while(currIndex > 0 && this.theMinions.get(currIndex-1).getCost() < 
+				this.theMinions.get(currIndex-1).getCost())
+			{  
+				//we swap the 2 places
+				temp = this.theMinions.get(currIndex);
+				this.theMinions.set(currIndex, this.theMinions.get(currIndex-1));
+				this.theMinions.set(currIndex-1, temp); 
+				currIndex--; 
+				
+			}
+		}
+	}
+	
 	public void sortLowestCostToHighestCost()
 	{
 		//this method's job is to take our ArrayList of minions and re-arrange it so that 
@@ -70,6 +101,28 @@ public class CardParser
 		}
 		this.theMinions = theSortedList; 
 	}
+	
+	private int findIndexOfLargestCostFromPosition(int pos) 
+	{
+		
+		//find the largest cost card from this position forward and return it
+		HearthstoneCard currWinner = this.theMinions.get(pos);
+		int indexOfWinner = pos;
+		for(int i = pos+1; i < this.theMinions.size(); i++)
+		{
+			if(this.theMinions.get(i).getCost() > currWinner.getCost())
+			{ 
+				//we have a new winner 
+				currWinner = this.theMinions.get(i);
+				indexOfWinner = i;
+
+			} 
+		}
+		//We know that currWinner is the card with the highest cost starting
+		//at index pos and we know it is found at indexOfWinner in theMinions
+		return indexOfWinner;	
+	}
+	
 	private HearthstoneCard findSmallest()
 	{
 		//Go through current state of theMinions and remove and return the card
