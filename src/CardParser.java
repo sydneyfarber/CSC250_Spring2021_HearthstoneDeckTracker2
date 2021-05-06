@@ -30,7 +30,7 @@ public class CardParser
 			 		if(cardData.containsKey("type") && cardData.get("type").equals("MINION")) 
 			 		{
 			 			//Only in here if a minion card
-			 			System.out.println(cardData.keySet().toString());
+			 			//System.out.println(cardData.keySet().toString());
 			 			String name = (String)cardData.get("name");
 			 			int cost = Integer.parseInt(cardData.get("cost").toString());
 			 			int attack = Integer.parseInt(cardData.get("attack").toString());
@@ -63,7 +63,7 @@ public class CardParser
 		}
 	}
 	
-	public void insertionSortLowestCostToHighestCost()
+	public void insertionSortLowestAttackToHighestAttack()
 	{
 		for(int currStart =1; currStart < this.theMinions.size(); currStart++)
 		{
@@ -71,8 +71,8 @@ public class CardParser
 			//then move on to the next currStart 
 			int currIndex = currStart;
 			HearthstoneCard temp;
-			while(currIndex > 0 && this.theMinions.get(currIndex-1).getCost() < 
-				this.theMinions.get(currIndex-1).getCost())
+			while(currIndex > 0 && this.theMinions.get(currIndex).getAttack() < 
+				this.theMinions.get(currIndex-1).getAttack())
 			{  
 				//we swap the 2 places
 				temp = this.theMinions.get(currIndex);
@@ -84,14 +84,41 @@ public class CardParser
 		}
 	}
 	
-	public void sortLowestCostToHighestCost()
+	//this guy returns the first card it finds with an attack of attack or null if no car was found
+	public HearthstoneCard binarySearchOnAttack(int attack)
 	{
-		//this method's job is to take our ArrayList of minions and re-arrange it so that 
-		//it is in the order of cards with the lowest cost first and cards with the
-		//highest cost last
-		//Note: this.theMinions.get(3).getCost() will give you the cost of card #3
-		//Note: this.theMinions.remove(3) will remove the card that used to be at bucket 3
-		//You will need to cobble together your own algorithm for getting this array list sorted
+		this.insertionSortLowestAttackToHighestAttack(); 
+		int currStart = 0;
+		int currEnd = this.theMinions.size()-1;
+		int middle;
+		HearthstoneCard temp; 
+		
+		//keep checking as long as the start is less than or equal to the end
+		while(currStart <= currEnd)
+		{	
+			middle = (currStart + currEnd)/2;
+			temp = this.theMinions.get(middle);
+			if(temp.getAttack() == attack)
+			{ 
+				return this.theMinions.get(middle);
+			}
+			else if(attack < temp.getAttack()) 
+			{
+				currEnd = middle - 1;
+			}
+			else
+			{ 
+				currStart = middle + 1; 
+			}
+		}
+		return null; 
+	}
+	public void insertionLowestAttackToHighestAttack()
+	{
+		for(int currStart = 1; currStart < this.theMinions.size(); currStart++)
+		{ 
+			int currIndex = currStart;
+		}
 		ArrayList<HearthstoneCard> theSortedList = new ArrayList<HearthstoneCard>();
 		HearthstoneCard nextSmallest; 
 		while(this.theMinions.size() > 0)

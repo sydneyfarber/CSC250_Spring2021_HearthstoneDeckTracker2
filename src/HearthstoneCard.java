@@ -33,6 +33,12 @@ public class HearthstoneCard
 		return this.cost; 
 	}
 	
+	
+	public int getAttack() 
+	{
+		return attack;
+	}
+
 	public void setName (String name)
 	{
 		if(name.length() >=5)

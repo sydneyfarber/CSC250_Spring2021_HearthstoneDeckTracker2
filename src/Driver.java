@@ -6,8 +6,7 @@ public class Driver
 	{
 		CardParser cp = new CardParser("https://api.hearthstonejson.com/v1/25770/enUS/cards.json");
 		//cp.showMinions();
-		cp.selectionSortHighestCostToLowestCost(); 
-		cp.showMinions();
-		
+		HearthstoneCard answer = cp.binarySearchOnAttack(5);
+		answer.display(); 
 	}	
 } 
