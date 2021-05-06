@@ -61,6 +61,33 @@ public class CardParser
 		//Note: this.theMinions.get(3).getCost() will give you the cost of card #3
 		//Note: this.theMinions.remove(3) will remove the card that used to be at bucket 3
 		//You will need to cobble together your own algorithm for getting this array list sorted
+		ArrayList<HearthstoneCard> theSortedList = new ArrayList<HearthstoneCard>();
+		HearthstoneCard nextSmallest; 
+		while(this.theMinions.size() > 0)
+		{
+			nextSmallest = this.findSmallest();
+			theSortedList.add(nextSmallest);
+		}
+		this.theMinions = theSortedList; 
+	}
+	private HearthstoneCard findSmallest()
+	{
+		//Go through current state of theMinions and remove and return the card
+		//with the smallest value
+		HearthstoneCard currWinner = this.theMinions.get(0); 
+		int indexOfWinner = 0;
 		
+		for(int i = 1; i < this.theMinions.size(); i++)
+		{
+			if(this.theMinions.get(i).getCost() < currWinner.getCost())
+			{
+				currWinner = this.theMinions.get(i); 
+				indexOfWinner = i; 
+			}
+		}
+		//the card with the smallest cost should be in currWinner
+		//the position of the card with the smallest cost should be in indexOfWinner
+		this.theMinions.remove(indexOfWinner);
+		return currWinner;
 	}
 }

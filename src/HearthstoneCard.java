@@ -14,6 +14,10 @@ public class HearthstoneCard
 		this.name = name; 
 	}
 	
+	public int getCost()
+	{
+		return this.cost; 
+	}
 	
 	public void setName (String name)
 	{
