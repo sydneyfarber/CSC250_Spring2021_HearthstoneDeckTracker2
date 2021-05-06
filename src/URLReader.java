@@ -15,6 +15,13 @@ public class URLReader
 		this.readFromURL();
 	}
 	
+	public String getTheURLContents() 
+	{
+		return theURLContents;
+	}
+
+
+
 	public void display()
 	{
 		System.out.println(this.theURLContents);
@@ -47,6 +54,5 @@ public class URLReader
 			line = "Can't Connect"; 
 		}
 	this.theURLContents = line;	
-	}
-	
+	}	
 }
